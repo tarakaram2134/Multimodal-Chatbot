@@ -143,7 +143,7 @@ This project is part of my work exploring practical applications of retrieval-au
 
 ## Author
 
-**Tarakaram Pudota**  
+**Taraka Ram Donepudi**  
 MS Computer Science  
 University of Michigan-Flint  
 
