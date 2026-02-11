@@ -77,44 +77,33 @@ Copy code
 git clone https://github.com/tarakaram2134/Multimodal-Chatbot.git
 cd Multimodal-Chatbot
 
-cpp
-Copy code
 
 2. Create a virtual environment
 
 python -m venv venv
 source venv/bin/activate
 
-scss
-Copy code
 
 (Windows PowerShell)
 
 venv\Scripts\activate
 
-markdown
-Copy code
 
 3. Install dependencies
 
 pip install -r requirements.txt
 
-markdown
-Copy code
+
 
 4. Start the backend
 
 uvicorn main:app --reload
 
-markdown
-Copy code
+
 
 5. Start the frontend
 
 streamlit run app.py
-
-yaml
-Copy code
 
 ---
 
