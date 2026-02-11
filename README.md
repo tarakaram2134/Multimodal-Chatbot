@@ -1,76 +1,161 @@
-# Gemini Multimodal Chatbot
+# Multimodal Chatbot with RAG
 
-A powerful chatbot application that leverages Google's Gemini models to handle multimodal inputs (text and images). The application is built with a FastAPI backend and a Streamlit frontend.
+This project is a multimodal chatbot that accepts text, images, and documents, retrieves relevant context, and generates grounded responses using large language models. The system combines retrieval-augmented generation (RAG), a FastAPI backend, and a Streamlit interface to support interactive querying.
 
-## Features
+The goal of this project is to explore how multimodal inputs and retrieval pipelines can improve the accuracy and usefulness of chatbot responses compared to plain LLM prompting.
 
-- **Multimodal capabilities**: Chat with text and images.
-- **RAG (Retrieval-Augmented Generation)**: Ingests documents to provide context-aware answers.
-- **FastAPI Backend**: Robust and scalable API.
-- **Streamlit Frontend**: User-friendly interface for interacting with the bot.
+---
 
-## Prerequisites
+## What This Project Does
 
-- Python 3.10+
-- A Google Cloud Project with Gemini API access.
-- API Key for Google Gemini.
+The chatbot can:
 
-## Setup
+- Accept text queries  
+- Process uploaded files or images  
+- Retrieve relevant context from indexed data  
+- Generate responses grounded in retrieved information  
+- Provide an interactive chat interface for experimentation  
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd Multimodal-ChatBot
-    ```
+Instead of relying purely on the language model’s memory, the system retrieves relevant information first and uses it to generate answers. This reduces hallucination and improves factual grounding.
 
-2.  **Backend Setup:**
-    Navigate to the `backend` directory:
-    ```bash
-    cd backend
-    ```
-    Create a virtual environment and install dependencies:
-    ```bash
-    python -m venv venv
-    # Windows
-    venv\Scripts\activate
-    # macOS/Linux
-    # source venv/bin/activate
-    
-    pip install -r requirements.txt
-    ```
-    Create a `.env` file in the `backend` directory with your credentials (see `.env.example` if available, or ask the developer).
+---
 
-3.  **Frontend Setup:**
-    (The frontend dependencies are included in the backend `requirements.txt` for this simple setup, but ensure you have streamlit installed).
+## System Architecture
 
-## Usage
+High-level flow:
 
-### 1. Start the Backend Server
+User → Streamlit UI → FastAPI Backend → Retriever → LLM → Response
 
-From the `backend` directory:
+1. The user submits a query through the Streamlit interface  
+2. FastAPI handles the request and routes it to the retrieval pipeline  
+3. Relevant context is retrieved from indexed data  
+4. The LLM generates an answer using both the query and retrieved context  
+5. The response is returned to the UI  
 
-```bash
-uvicorn app.main:app --reload
-```
+This separation keeps the UI, API, and retrieval logic modular.
 
-The API will be available at `http://localhost:8000`. API docs at `http://localhost:8000/docs`.
+---
 
-### 2. Start the Frontend Application
+## Tech Stack
 
-Open a new terminal, activate the environment, and run:
+**Backend**
+- FastAPI for API routing and service orchestration  
 
-```bash
-# From backend directory
-streamlit run app/frontend/streamlit_app.py
-```
+**Frontend**
+- Streamlit for an interactive chat interface  
 
-The application will open in your browser.
+**AI / Retrieval**
+- Retrieval-Augmented Generation (RAG)
+- Embedding-based retrieval
+- Large language model integration  
+
+**Utilities**
+- Python for pipeline logic
+- Environment variable configuration for API keys and settings  
+
+---
 
 ## Project Structure
 
-- `backend/app`: Main application code.
-    - `main.py`: Entry point for FastAPI.
-    - `routes/`: API endpoints.
-    - `core/`: Core logic and configuration.
-    - `frontend/`: Streamlit application code.
-- `data/`: Directory for storing data (ignored by git).
+Multimodal-Chatbot/
+│
+├── backend/ # FastAPI services and retrieval logic
+├── frontend/ # Streamlit UI
+├── utils/ # Helper functions and processing logic
+├── requirements.txt
+└── README.md
+
+yaml
+Copy code
+
+---
+
+## How to Run Locally
+
+1. Clone the repository
+
+git clone https://github.com/tarakaram2134/Multimodal-Chatbot.git
+cd Multimodal-Chatbot
+
+cpp
+Copy code
+
+2. Create a virtual environment
+
+python -m venv venv
+source venv/bin/activate
+
+scss
+Copy code
+
+(Windows PowerShell)
+
+venv\Scripts\activate
+
+markdown
+Copy code
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+markdown
+Copy code
+
+4. Start the backend
+
+uvicorn main:app --reload
+
+markdown
+Copy code
+
+5. Start the frontend
+
+streamlit run app.py
+
+yaml
+Copy code
+
+---
+
+## Design Decisions
+
+**FastAPI**  
+Chosen for its speed, clean structure, and easy integration with async pipelines.
+
+**Streamlit**  
+Used for rapid prototyping of interactive AI interfaces without needing a full frontend framework.
+
+**RAG Pipeline**  
+Implemented to reduce hallucinations and improve factual accuracy when answering queries.
+
+**Modular Layout**  
+Backend, UI, and utilities are separated to make the system easier to extend.
+
+---
+
+## Possible Improvements
+
+Some directions this project could be extended:
+
+- Persistent vector database (FAISS or ChromaDB)
+- Streaming responses for better UX
+- Authentication and session memory
+- Multi-document context handling
+- Deployment using Docker and cloud services
+
+---
+
+## Why I Built This
+
+This project is part of my work exploring practical applications of retrieval-augmented generation and multimodal AI systems. The focus was on building a system that is modular, explainable, and easy to extend rather than just a demo script.
+
+---
+
+## Author
+
+**Tarakaram Pudota**  
+MS Computer Science  
+University of Michigan-Flint  
+
+GitHub: https://github.com/tarakaram2134
